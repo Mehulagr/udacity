@@ -1,0 +1,23 @@
+<section class="card-deck" id="work">
+    <div class="card">
+      <img class="card-img-top" src="image/memory-game-cover.jpg" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Memory Game</h5>
+        <p class="card-text"><small class="text-muted">Coming Soon</small></p>
+      </div>
+    </div>
+    <div class="card">
+      <img class="card-img-top" src="image/arcade-cover.jpg" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Arcade Game</h5>
+        <p class="card-text"><small class="text-muted">Coming Soon</small></p>
+      </div>
+    </div>
+    <div class="card">
+      <img class="card-img-top" src="image/resturant-reviews-cover.jpg" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Resturant Reviews</h5>
+        <p class="card-text"><small class="text-muted">Coming Soon</small></p>
+      </div>
+    </div>
+  </section>
