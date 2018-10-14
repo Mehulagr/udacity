@@ -1,7 +1,5 @@
 ##Mehul's Portfolio
 
-'code'
+Hi, this is my **portfolio**. I will be adding different projects in javascript soon. 
 
-**bold**
-
-_italic_
+_Coming Soon_
