@@ -13,7 +13,7 @@
 
 <body>
     <!-- Modal -->
-    <div class="modal fade" id="winningModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="winningModal" tabindex="-1" role="dialog" aria-labelledby="winningModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -22,7 +22,7 @@
         <div class="modal-body">
           <i class="fa fa-check"></i>
           <h2>Congratulations!! You Won!</h2>
-          With <span id="move-count"></span> moves and <span id="star-count"></span> stars in <span id="game-time"></span> seconds.
+          With <span id="move-count"></span> moves and <span id="star-count"></span> stars in <span id="game-time-minutes"></span> minutes and <span id="game-time-seconds"></span> seconds.
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="restartGame()">Play Again</button>
@@ -47,6 +47,7 @@
 
           <div class="restart" id="restart">
         		<i class="fa fa-repeat"></i>
+            <span id="minutes">00</span>:<span id="seconds">00</span>
         	</div>
         </section>
 

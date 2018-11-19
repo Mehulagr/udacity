@@ -1,20 +1,18 @@
-# Memory Game Project
+# Memory Game Project by Mehul Agrawal
 
 ## Table of Contents
 
-* [Instructions](#instructions)
+* [Play Instructions](#playinstructions)
 * [Contributing](#contributing)
 
-## Instructions
-
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
-
-To get started, open `js/app.js` and start building out the app's functionality
-
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
+## Play Instructions
+- Game objective is to find all matching cards.
+- Steps:
+1) Clicking on a card turns it to reveal the pic.
+2) Once you open a card open next one. If it matches previous one both of the card will remain open or else they will turn back.
+3) Remember what each card was and where it was.
+4) 3 stars if you complete it is less than 20 moves. 2 stars for less than 25 moves. 1 for less than 30. No stars if more than that.
 
 ## Contributing
-
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+1) Shuffle code from: http://stackoverflow.com/a/2450976
+2) Starter code from: https://github.com/udacity/fend-project-memory-game

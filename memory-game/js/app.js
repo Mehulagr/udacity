@@ -7,9 +7,25 @@
  var time_keeper = new Date();
  var match_counter = 0;
  var stars_counter = 3;
+ var lock_game = false;
+ var time_in_seconds, time_in_minutes;
 
+// Game Timer
+ var game_time = setInterval(function() {
+   var update_time = new Date();
+   var time_difference = Math.floor((update_time-time_keeper)/1000);
+   time_in_seconds = time_difference % 60;
+   time_in_minutes = Math.floor(time_difference / 60);
+   if (time_in_seconds < 10) {time_in_seconds = "0" + time_in_seconds;}
+   if (time_in_minutes < 10) {time_in_minutes = "0" + time_in_minutes;}
+   document.getElementById("seconds").textContent = time_in_seconds;
+   document.getElementById("minutes").textContent = time_in_minutes;
+}, 1000);
+
+//Click listener for any one of the tiles
  document.querySelector('.deck').addEventListener('click', function (evt) {
-     if (evt.target.classList.contains('match') == false && !(evt.target == first_card) && evt.target.classList.contains('card')) {  // ← verifies target is desired element
+     if (evt.target.classList.contains('match') == false && !(evt.target == first_card) && evt.target.classList.contains('card') && !lock_game) {  // ← verifies that clicked card is not already matched or open and more than two cards are not open
+       lock_game = true;
        let selectedCard = evt.target;
        score_counter++;
        updateScore(score_counter);
@@ -17,41 +33,41 @@
      }
  });
 
+//To restart Game using the refresh icon
  document.getElementById("restart").addEventListener('click', function() {
    restartGame();
  });
 
+// Main function that tracks the status of the game. Runs comparisson if this is the second card that is getting clicked else assigns first card.
 function gameTracker(clickedCard) {
-  clickedCard.classList.add("open");
-  clickedCard.classList.add("show");
-  //console.log(subCard.classList);
-
-if (first_card) {
-  var subCard = first_card.getElementsByTagName('I');
-  var subCard2 = clickedCard.getElementsByTagName('I');
-  if (compareCards(subCard, subCard2)){
-    first_card.classList.add("match");
-    clickedCard.classList.add("match");
-    match_counter++;
-    if (match_counter == 8) {
-      wonGame();
+  clickedCard.classList.add("open", "show");
+  if (first_card) { //Checking that first card is already open and user clicking on the second card in pair
+    var subCard = first_card.getElementsByTagName('I');
+    var subCard2 = clickedCard.getElementsByTagName('I');
+    if (compareCards(subCard, subCard2)){  // If first and second card match
+      first_card.classList.add("match");
+      clickedCard.classList.add("match");
+      match_counter++;
+      if (match_counter == 8) { wonGame() } // If all the 8 pairs are open
+      lock_game = false;
+    } else {  // If they dont match
+      first_card.classList.add("error");
+      clickedCard.classList.add("error");
+      setTimeout(notMatched, 2000, first_card, clickedCard);
     }
-  } else {
-    first_card.classList.add("error");
-    clickedCard.classList.add("error");
-    setTimeout(notMatched, 3000, first_card, clickedCard);
-  }
-
-  first_card = null;
-  } else {
+    first_card = null;
+  } else {    // if this is the first card in the pair to be opened
     first_card = clickedCard;
+    lock_game = false;
   }
 }
 
+// Compairing the already open card and the card the card that was clicked is same
 function compareCards(subCard, subCard2) {
   return subCard[0].classList[1] == subCard2[0].classList[1]; //&& !(subCard == subCard2)
 }
 
+// Update the score after every click
 function updateScore(score) {
   document.getElementsByClassName("moves")[0].textContent = score;
   if (score == 20) {
@@ -68,24 +84,26 @@ function updateScore(score) {
   }
 }
 
+// Close the cards and unlock board if cards don't match
 function notMatched(first_card, clickedCard) {
   first_card.classList.remove("open", "show", "error");
   clickedCard.classList.remove("open", "show", "error");
+  lock_game = false;
 };
 
-function removeClass(first_card, clickedCard) {
-
-};
-
+// Open winning modal and show the score
 function wonGame() {
   $('#winningModal').modal('toggle');
   current_time = new Date();
   document.getElementById("move-count").textContent = score_counter;
   document.getElementById("star-count").textContent = stars_counter;
-  document.getElementById("game-time").textContent = (current_time-time_keeper)/1000;
+  document.getElementById("game-time-seconds").textContent = time_in_seconds;
+  document.getElementById("game-time-minutes").textContent = time_in_minutes;
 }
 
+// Restart game
 function restartGame() {
+  lock_game = false;
   var old_order = [];
   for (var i = 0; i < all_cards.length; i++) {
     old_order[i] = all_cards[i];
@@ -125,15 +143,3 @@ function shuffle(array) {
 
     return array;
 }
-
-
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
